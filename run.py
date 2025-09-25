@@ -1,5 +1,6 @@
-from flask import Flask, jsonify
-from datetime import datetime
+from flask import Flask
+import datetime
+from zoneinfo import ZoneInfo
 
 app = Flask(__name__)
 
@@ -10,7 +11,8 @@ def hello_world():
 
 @app.route('/time')
 def current_time():
-    return jsonify({"time": datetime.estnow().isoformat() + "Z"})
+    now_est = datetime.datetime.now(ZoneInfo("America/New_York"))
+    return {"time": now_est.isoformat()}
 
 
 if __name__ == "__main__":
